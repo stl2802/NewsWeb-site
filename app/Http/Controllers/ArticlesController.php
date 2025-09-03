@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use Illuminate\Http\Request;
 
-class NewsController extends Controller
+class ArticlesController extends Controller
 {
     public function show_json($imageLabaName){
         return view('new', ['imageLabaName'=>$imageLabaName]);

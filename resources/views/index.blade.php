@@ -13,6 +13,7 @@
                         @if(isset($article->shortDesc))
                             <p class="mb-1">описание:{{$article->shortDesc}}</p>
                         @endif
+                        <p class="mb-0">пользователь:{{$article->user->name}}</p>
                         <p class="mb-0">дата:{{$article->datePublic}}</p>
                     </div>
                 </div>

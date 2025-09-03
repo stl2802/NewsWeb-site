@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ArticlesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +21,10 @@ Route::get('/', function () {
 
 
 Route::get('/index_json', [PageController::class, 'index_json'])->name('index_json');
-Route::get('/{imageLabaName}/new_json',[NewsController::class, 'show_json'])->name('show_json');
+Route::get('/{imageLabaName}/new_json',[ArticlesController::class, 'show_json'])->name('show_json');
 
 Route::get('/index',[PageController::class, 'index'])->name('index');
-Route::get('/{id}/show',[NewsController::class,'show'])->name('show');
+Route::get('/{id}/show',[ArticlesController::class,'show'])->name('show');
 
 Route::get('/about', [PageController::class, 'about'])->name('about');
 
