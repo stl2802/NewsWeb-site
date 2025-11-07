@@ -22,11 +22,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('index')}}">новости</a>
                             </li>
-                            @auth
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{route('home')}}">лк</a>
-                                </li>
-                            @endauth
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('about')}}">о нас</a>
                             </li>
@@ -39,6 +34,11 @@
                                         @csrf
                                         <button type="submit" class="nav-link">Выход</button>
                                     </form>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('home') }}" class="d-inline-block" style="width: 3rem; height: 3rem;">
+                                        <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="фото профиля" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </a>
                                 </li>
                             @endauth
                             @guest

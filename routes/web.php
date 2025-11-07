@@ -20,6 +20,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test-simple-email', function () {
+    \Illuminate\Support\Facades\Mail::raw('Простое тестовое письмо', function ($message) {
+        $message->to('anmaks93@gmail.com')
+            ->subject('Тест из Laravel');
+    });
+
+    return 'Письмо отправлено в лог. Проверь storage/logs/laravel.log';
+});
+
 
 Route::get('/index_json', [PageController::class, 'index_json'])->name('index_json');
 Route::get('/{imageLabaName}/new_json',[ArticlesController::class, 'show_json'])->name('show_json');
@@ -33,11 +42,11 @@ Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
 
 Route::get('/article/create', [ArticlesController::class, 'create'])
-    ->middleware('can:create,article')
+    ->middleware('can:create,App\Models\Article')
     ->name('article.create');
 
 Route::post('/articles/}', [ArticlesController::class, 'store'])
-    ->middleware('can:create,article')
+    ->middleware('can:create,App\Models\Article')
     ->name('article.store');
 
 Route::get('/article/{article}/edit', [ArticlesController::class, 'edit'])

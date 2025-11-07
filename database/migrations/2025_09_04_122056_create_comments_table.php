@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('content');
             $table->integer('likes')->nullable();
             $table->integer('dislikes')->nullable();
+            $table->boolean('admin_check_status')->default(false);
+            $table->string('avatar')->default('default.png');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('article_id')->constrained('articles')->onDelete('cascade');
             $table->timestamps();

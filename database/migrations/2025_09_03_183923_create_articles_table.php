@@ -18,6 +18,7 @@ return new class extends Migration
 
             $table->date('datePublic');
             $table->string('title')->nullable();
+            $table->string('image')->default('images/articles/default.jpg');
             $table->string('shortDesc');
             $table->string('desc')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');

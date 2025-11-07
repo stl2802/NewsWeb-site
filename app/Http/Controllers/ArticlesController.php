@@ -13,6 +13,7 @@ class ArticlesController extends Controller
         'title'=>'nullable|string',
         'shortDesc'=>'required|string',
         'desc'=>'nullable|string',
+        'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:10240'],
     ];
     public function __construct(){
         $this->middleware('auth');
@@ -29,22 +30,39 @@ class ArticlesController extends Controller
     }
     public function store(Request $request){
         $validated = $request->validate(self::ARTICLE_VALIDATOR);
+
+        $imagePath = null;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images/articles','public');
+        }
+
+
         $date = date('Y-m-d');
         Auth::user()->articles()->create([
             'title'=>$validated['title'],
             'shortDesc'=>$validated['shortDesc'],
             'desc'=>$validated['desc'],
             'datePublic'=>$date,
+            'image'=>$imagePath,
             'user_id'=>Auth::id(),
         ]);
         return redirect()->route('home');
     }
     public function update(Request $request, Article $article){
         $validated = $request->validate(self::ARTICLE_VALIDATOR);
+
+        $imagePath = null;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images/articles','public');
+        }
+
         $article->update([
             'title'=>$validated['title'],
             'shortDesc'=>$validated['shortDesc'],
             'desc'=>$validated['desc'],
+            'image'=>$imagePath,
             'datePublic'=>date('Y-m-d'),
         ]);
         return redirect()->route('show',$article->id);

@@ -25,7 +25,7 @@ class ArticlePolicy
     {
         return $user->is_admin
             ? Response::allow()
-            : Response::deny('Вы можете создавать только свои статьи');
+            : Response::deny('Вы не админ');
     }
 
     public function store(User $user): Response
