@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Auth\Access\AuthorizationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -41,10 +42,24 @@ class Handler extends ExceptionHandler
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (AuthorizationException $e, $request) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Доступ запрещен',
+                    'error' => 'UNAUTHORIZED'
+                ], 403);
+            }
+
+            return response()->view('errors.403', [
+                'message' => 'У вас нет прав для выполнения этого действия'
+            ], 403);
+        });
+
+        $this->renderable(function (AccessDeniedException $e, $request) {
+            return $e->render($request);
         });
     }
 }

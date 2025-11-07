@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Access\Response;
 
 class ArticlePolicy
 {
@@ -20,21 +21,27 @@ class ArticlePolicy
     {
         //
     }
-    public function create(User $user)
+    public function create(User $user): Response
     {
-        return $user->is_admin;
+        return $user->is_admin
+            ? Response::allow()
+            : Response::deny('Вы можете создавать только свои статьи');
     }
 
-    public function store(User $user)
+    public function store(User $user): Response
     {
         return $this->create($user);
     }
 
-    public function update(User $user, Article $article){
-        return $article->user->id === $user->id && $user->is_admin;
+    public function update(User $user, Article $article): Response
+    {
+        return $article->user->id === $user->id && $user->is_admin
+            ? Response::allow()
+            : Response::deny('Вы можете редактировать только свои статьи');
     }
 
-    public function delete(User $user, Article $article){
+    public function delete(User $user, Article $article): Response
+    {
         return $this->update($user, $article);
     }
 }

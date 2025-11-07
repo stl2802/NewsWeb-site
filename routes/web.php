@@ -32,10 +32,12 @@ Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
 
-Route::get('/article/create.blade.php', [ArticlesController::class, 'create'])
+Route::get('/article/create', [ArticlesController::class, 'create'])
+    ->middleware('can:create,article')
     ->name('article.create');
 
 Route::post('/articles/}', [ArticlesController::class, 'store'])
+    ->middleware('can:create,article')
     ->name('article.store');
 
 Route::get('/article/{article}/edit', [ArticlesController::class, 'edit'])
