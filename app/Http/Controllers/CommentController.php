@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\VeryLongJob;
 use App\Models\Article;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -32,21 +33,25 @@ class CommentController extends Controller
     }
     public function store(Request $request, Article $article){
         $validated = $request->validate(self::COMMENT_VALIDATOR_COM);
+        $check = false;
+        if(Auth::user()->isAdmin()){
+            $check = true;
+        }
         $comment = $article->comments()->create([
             'content' => $validated['content'],
             'likes' => 0,
             'dislikes' => 0,
             'user_id' => Auth::id(),
-            'article_id' => $article->id,
+            'admin_check_status'=>$check,
         ]);
 
         $comment->load('user', 'article');
-        $this->notificationService->notifyAdminAboutNewComment(
-            $comment,
-            $article,
-        );
 
-        return redirect()->back();
+        VeryLongJob::dispatch($comment, $article);
+
+        return redirect()
+            ->route('show', $article->id)
+            ->with('success', 'Ваш комментарий отправлен на модерацию и будет опубликован после проверки.');
     }
     public function edit(Comment $comment){
         return view('comments.edit', compact('comment', ));
@@ -62,6 +67,12 @@ class CommentController extends Controller
     }
     public function destroy(Comment $comment){
         $comment->delete();
+        return redirect()->back();
+    }
+
+    public function confirm(Comment $comment)
+    {
+        $comment->update(['admin_check_status' => true]);
         return redirect()->back();
     }
 }

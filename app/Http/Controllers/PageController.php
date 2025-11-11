@@ -16,9 +16,9 @@ class PageController extends Controller
         $articles = Article::paginate(12);
         return view('index',compact('articles'));
     }
-    public function show(Article $article) {
-        $comments = $article->comments;
-        return view('show', compact('article', 'comments'));
+    public function show(Article $article){
+        $checkComments = $article->comments->where('admin_check_status', true);
+        return view('show', compact('article','checkComments'));
     }
 
     public function about(){

@@ -5,6 +5,30 @@
         <title>
             @yield('title')
         </title>
+        <!-- Подключение Bootstrap Icons -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+        <style>
+            .card {
+                border-radius: 15px;
+            }
+            .list-group-item {
+                border: none;
+                border-bottom: 1px solid #e9ecef;
+                padding: 1.5rem;
+            }
+            .list-group-item:last-child {
+                border-bottom: none;
+            }
+            .btn {
+                border-radius: 8px;
+            }
+            .form-control {
+                border-radius: 10px;
+            }
+            .dropdown-toggle::after {
+                display: none;
+            }
+        </style>
     </head>
     <body>
         <header>
@@ -40,6 +64,9 @@
                                         <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="фото профиля" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
                                     </a>
                                 </li>
+                                @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
+                                    <a class="nav-link" href="{{route('admin.index')}}">Админ панель</a>
+                                @endif
                             @endauth
                             @guest
                                 <li>
@@ -59,4 +86,28 @@
         </div>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('editBtn').addEventListener('click', () => {
+            document.getElementById('profileForm').classList.remove('d-none');
+            document.getElementById('name').disabled = false;
+            document.getElementById('email').disabled = false;
+            document.getElementById('password').disabled = false;
+            document.getElementById('editBtn').style.display = 'none';
+        });
+
+        document.getElementById('cancelBtn').addEventListener('click', () => {
+            document.getElementById('profileForm').classList.add('d-none');
+            document.getElementById('name').disabled = true;
+            document.getElementById('email').disabled = true;
+            document.getElementById('password').disabled = true;
+            document.getElementById('editBtn').style.display = 'inline-block';
+
+            // Возврат значений
+            @auth()
+                document.getElementById('name').value = '{{ $user->name }}';
+                document.getElementById('email').value = '{{ $user->email }}';
+                document.getElementById('password').value = '';
+            @endauth
+        });
+    </script>
 </html>

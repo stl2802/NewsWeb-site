@@ -20,25 +20,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test-simple-email', function () {
-    \Illuminate\Support\Facades\Mail::raw('Простое тестовое письмо', function ($message) {
-        $message->to('anmaks93@gmail.com')
-            ->subject('Тест из Laravel');
-    });
+Route::get('/index',[PageController::class, 'index'])
+    ->name('index');
 
-    return 'Письмо отправлено в лог. Проверь storage/logs/laravel.log';
-});
 
+Route::get('/{article}/show',[PageController::class,'show'])
+    ->name('show');
 
 Route::get('/index_json', [PageController::class, 'index_json'])->name('index_json');
-Route::get('/{imageLabaName}/new_json',[ArticlesController::class, 'show_json'])->name('show_json');
+Route::get('/{imageLabaName}/new_json',[ArticlesController::class, 'show_json'])
+    ->name('show_json');
 
-Route::get('/index',[PageController::class, 'index'])->name('index');
-Route::get('/{article}/show',[ArticlesController::class,'show'])->name('show');
+Route::get('/about', [PageController::class, 'about'])
+    ->name('about');
 
-Route::get('/about', [PageController::class, 'about'])->name('about');
-
-Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+Route::get('/contact', [PageController::class, 'contact'])
+    ->name('contact');
 
 
 Route::get('/article/create', [ArticlesController::class, 'create'])
@@ -68,14 +65,43 @@ Route::get('/articles/article/comments/{comment}/edit',[CommentController::class
     ->middleware('can:update,comment')
     ->name('comment.edit');
 
-Route::patch('/articles/article/comments/{comment}', [CommentController::class, 'update'])
+Route::patch('/article/{article}/comment/{comment}', [CommentController::class, 'update'])
     ->middleware('can:update,comment')
     ->name('comment.update');
+
+Route::patch('/comment/{comment}/confirm', [CommentController::class, 'confirm'])
+    //->middleware('auth:admin')
+    ->name('comment.confirm');
 
 Route::delete('/articles/article/comments/{comment}', [CommentController::class, 'destroy'])
     ->middleware('can:update,comment')
     ->name('comment.delete');
 
+Route::middleware(['auth','can:update,user'])->prefix('/home/profile')->namespace('App\Http\Controllers')->group(function () {
+    Route::patch('/{user}/update', 'HomeController@profileUpdate')
+        ->name('profile.update');
+    Route::patch('/{user}/update/avatar', 'HomeController@profileAvatarUpdate')
+        ->name('profile.avatar.update');
+});
+
+Route::middleware(['auth', 'admin'])->prefix('/admin')->namespace('App\Http\Controllers')->group(function () {
+    Route::get('/index', 'AdminController@index')->name('admin.index');
+
+    Route::get('/users', 'AdminController@users')->name('admin.users');
+
+    Route::get('/articles', 'AdminController@articles')->name('admin.articles');
+
+    Route::get('/comments', 'AdminController@comments')->name('admin.comments');
+
+    Route::get('/logs/download', 'AdminController@logs')->name('admin.logs');
+
+    Route::delete('/user/delete', 'AdminController@deleteUser')->name('admin.deleteUser');
+    Route::patch('/user/ban', 'AdminController@banUser')->name('admin.userBan');
+    Route::patch('/user/unban', 'AdminController@unbanUser')->name('admin.userUnban');
+});
+
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+    ->name('home');

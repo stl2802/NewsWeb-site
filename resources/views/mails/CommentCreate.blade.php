@@ -31,8 +31,8 @@
                         </div>
 
                         <div class="action-buttons">
-                            <a href="{{ url()->previous() }}" class="btn btn-secondary">
-                                <i class="fas fa-arrow-left me-1">К коментарию</i>
+                            <a href="{{ route('admin.comments') }}#comment-{{ $comment->id }}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-1"></i>К комментарию
                             </a>
                         </div>
                     </div>

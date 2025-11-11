@@ -6,6 +6,30 @@
     <title>@yield('title')</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Подключение Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .card {
+            border-radius: 15px;
+        }
+        .list-group-item {
+            border: none;
+            border-bottom: 1px solid #e9ecef;
+            padding: 1.5rem;
+        }
+        .list-group-item:last-child {
+            border-bottom: none;
+        }
+        .btn {
+            border-radius: 8px;
+        }
+        .form-control {
+            border-radius: 10px;
+        }
+        .dropdown-toggle::after {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -42,6 +66,9 @@
                                 <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="фото профиля" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
                             </a>
                         </li>
+                        @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
+                            <a class="nav-link" href="{{route('admin.index')}}">Админ панель</a>
+                        @endif
                     @endauth
                     @guest
                         <li>
@@ -58,6 +85,7 @@
 </header>
 
 <main class="container my-4">
+    @yield('information_message')
     @yield('content')
 </main>
 

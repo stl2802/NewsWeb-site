@@ -22,6 +22,7 @@ class CommentFactory extends Factory
             'content' => $this->faker->realText(),
             'likes' => $this->faker->randomDigit(),
             'dislikes' => $this->faker->randomDigit(),
+            'admin_check_status' => $this->faker->boolean(),
             'article_id' => Article::factory(),
             'user_id'=> User::factory(),
         ];

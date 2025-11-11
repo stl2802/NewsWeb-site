@@ -31,16 +31,12 @@
         .news-card {
             flex: 0 0 calc(33.333% - 1.5rem);
             max-width: calc(33.333% - 1.5rem);
-            height: 660px
         }
         .card-img-top {
             height: 50%; /* Было 250px + 40px = 290px */
             object-fit: cover;
         }
         /* Увеличиваем высоту всей карточки */
-        .card {
-            height: 450px; /* Добавляем общую высоту карточки */
-        }
         @media (max-width: 992px) {
             .news-card {
                 flex: 0 0 calc(50% - 1.5rem);
@@ -71,6 +67,7 @@
                                     @if(isset($article->shortDesc))
                                         <p class="card-text mb-2">{{ $article->shortDesc }}</p>
                                     @endif
+                                    <p>{{$article->content}}</p>
                                     <div class="mt-auto">
                                         <p class="mb-1"><strong>Пользователь:</strong> {{ $article->user->name }}</p>
                                         <p class="mb-0"><strong>Дата:</strong> {{ $article->datePublic }}</p>

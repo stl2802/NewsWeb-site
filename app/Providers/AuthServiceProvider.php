@@ -18,6 +18,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'App\Models\Article' => 'App\Policies\ArticlePolicy',
         'App\Models\Comment' => 'App\Policies\CommentPolicy',
+        'App\Models\User' => 'App\Policies\UserPolicy',
     ];
 
     /**
@@ -70,5 +71,6 @@ class AuthServiceProvider extends ServiceProvider
                 ? Response::allow()
                 : Response::deny('Только администраторы могут модерировать комментарии');
         });
+
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->string('content');
+            $table->text('content');
             $table->integer('likes')->nullable();
             $table->integer('dislikes')->nullable();
             $table->boolean('admin_check_status')->default(false);

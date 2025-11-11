@@ -40,6 +40,13 @@
             <div class="invalid-feedback">{{$message}}</div>
             @enderror
         </div>
+        <div>
+            <label for="content" class="form-label">Контент</label>
+            <input name="content" type="text" id="content" class="form-control @error('content') is-invalid @enderror" value="{{ old('content'),$article->content}}">
+            @error('content')
+            <div class="invalid-feedback">{{$message}}</div>
+            @enderror
+        </div>
         <input type="submit" class="btn btn-primary" value="Добавить">
     </form>
 @endsection

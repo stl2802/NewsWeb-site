@@ -13,6 +13,7 @@ class ArticlesController extends Controller
         'title'=>'nullable|string',
         'shortDesc'=>'required|string',
         'desc'=>'nullable|string',
+        'content'=>'nullable|string',
         'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:10240'],
     ];
     public function __construct(){
@@ -31,7 +32,7 @@ class ArticlesController extends Controller
     public function store(Request $request){
         $validated = $request->validate(self::ARTICLE_VALIDATOR);
 
-        $imagePath = null;
+        $imagePath = 'images/articles/default.jpg';
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images/articles','public');
@@ -45,6 +46,7 @@ class ArticlesController extends Controller
             'desc'=>$validated['desc'],
             'datePublic'=>$date,
             'image'=>$imagePath,
+            'content'=>$validated['content'],
             'user_id'=>Auth::id(),
         ]);
         return redirect()->route('home');
@@ -70,8 +72,5 @@ class ArticlesController extends Controller
     public function delete(Article $article){
         $article->delete();
         return redirect()->back();
-    }
-    public function show(Article $article){
-        return view('show', compact('article'));
     }
 }

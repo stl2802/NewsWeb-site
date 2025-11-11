@@ -64,7 +64,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $imagePath = null;
+        $imagePath = 'images/avatars/default.png';
 
         if (request()->hasFile('image')) {
             $imagePath = request()->file('image')->store('images/avatars','public');

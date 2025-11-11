@@ -5,7 +5,7 @@
         @csrf
         <div class="mb-3">
             <label for="txtTitle" class="form-label">Новость</label>
-            <input name="title" id="txtTitle" class="form-control @error('title') is-invalid @enderror " value="{{old('title')}}">
+            <input name="title" id="txtTitle" class="form-control @error('title') is-invalid @enderror " value="">
             @error('title')
             <div class="invalid-feedback">{{$message}}</div>
             @enderror
@@ -14,7 +14,7 @@
             <label for="desc" class="form-label">
                 Описание
             </label>
-            <textarea name="desc" id="desc" class="form-control @error('desc') is-invalid @enderror" rows="3">{{ old('desc') }}</textarea>
+            <textarea name="desc" id="desc" class="form-control @error('desc') is-invalid @enderror" rows="3"></textarea>
             @error('desc')
             <div class="invalid-feedback">{{$message}}</div>
             @enderror
@@ -34,8 +34,15 @@
         </div>
         <div>
             <label for="shortDesc" class="form-label">Краткое описание</label>
-            <input name="shortDesc" type="text" id="shortDesc" class="form-control @error('shortDesc') is-invalid @enderror" value="{{ old('shortDesc') }}">
+            <input name="shortDesc" type="text" id="shortDesc" class="form-control @error('shortDesc') is-invalid @enderror" value="">
             @error('shortDesc')
+            <div class="invalid-feedback">{{$message}}</div>
+            @enderror
+        </div>
+        <div>
+            <label for="content" class="form-label">Контент</label>
+            <input name="content" type="text" id="content" class="form-control @error('content') is-invalid @enderror" value="">
+            @error('content')
             <div class="invalid-feedback">{{$message}}</div>
             @enderror
         </div>

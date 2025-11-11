@@ -20,7 +20,13 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('image')->default('images/articles/default.jpg');
             $table->string('shortDesc');
-            $table->string('desc')->nullable();
+            $table->text('desc')->nullable();
+
+            $table->longText('content');
+
+            $table->string('tags')->nullable();
+            $table->string("status")->default("secure");
+
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 
             $table->timestamps();
