@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Auth;
 
 class ArticlesController extends Controller
@@ -72,5 +73,15 @@ class ArticlesController extends Controller
     public function delete(Article $article){
         $article->delete();
         return redirect()->back();
+=======
+
+class ArticlesController extends Controller
+{
+    public function show_json($imageLabaName){
+        return view('new', ['imageLabaName'=>$imageLabaName]);
+    }
+    public function show(Article $article){
+        return view('show', compact('article'));
+>>>>>>> origin/master
     }
 }

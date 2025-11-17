@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
+<<<<<<< HEAD
 
             $table->date('datePublic');
             $table->string('title')->nullable();
@@ -29,6 +30,13 @@ return new class extends Migration
 
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 
+=======
+            $table->date('datePublic');
+            $table->string('title')->nullable();
+            $table->string('shortDesc');
+            $table->string('desc')->nullable();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+>>>>>>> origin/master
             $table->timestamps();
             $table->softDeletes();
         });

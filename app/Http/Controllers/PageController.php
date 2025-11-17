@@ -13,6 +13,7 @@ class PageController extends Controller
         return view('index_json',['articles'=>$articles]);
     }
     public function index(){
+<<<<<<< HEAD
         $articles = Article::paginate(12);
         return view('index',compact('articles'));
     }
@@ -20,6 +21,11 @@ class PageController extends Controller
         $checkComments = $article->comments->where('admin_check_status', true);
         return view('show', compact('article','checkComments'));
     }
+=======
+        $articles = Article::all();
+        return view('index',compact('articles'));
+    }
+>>>>>>> origin/master
 
     public function about(){
         return view('about');

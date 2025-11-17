@@ -2,23 +2,34 @@
 
 namespace App\Providers;
 
+<<<<<<< HEAD
 use App\Models\Article;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+=======
+>>>>>>> origin/master
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
     /**
+<<<<<<< HEAD
      * The model to policy mappings for the application.
+=======
+     * The policy mappings for the application.
+>>>>>>> origin/master
      *
      * @var array<class-string, class-string>
      */
     protected $policies = [
+<<<<<<< HEAD
         'App\Models\Article' => 'App\Policies\ArticlePolicy',
         'App\Models\Comment' => 'App\Policies\CommentPolicy',
         'App\Models\User' => 'App\Policies\UserPolicy',
+=======
+        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+>>>>>>> origin/master
     ];
 
     /**
@@ -30,6 +41,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+<<<<<<< HEAD
         // Gate для управления статьями (только админ/модератор)
         Gate::define('manage-articles', function (User $user) {
             return $user->is_admin
@@ -72,5 +84,8 @@ class AuthServiceProvider extends ServiceProvider
                 : Response::deny('Только администраторы могут модерировать комментарии');
         });
 
+=======
+        //
+>>>>>>> origin/master
     }
 }

@@ -13,7 +13,10 @@ class Article extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+<<<<<<< HEAD
     public function comments(){
         return $this->hasMany(Comment::class);
     }
+=======
+>>>>>>> origin/master
 }

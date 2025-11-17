@@ -21,7 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+<<<<<<< HEAD
         'avatar',
+=======
+>>>>>>> origin/master
     ];
 
     /**
@@ -45,6 +48,7 @@ class User extends Authenticatable
     public function articles(){
         return $this->hasMany(Article::class);
     }
+<<<<<<< HEAD
     public function isAdmin()
     {
         return $this->is_admin;
@@ -52,4 +56,6 @@ class User extends Authenticatable
     public function comments(){
         return $this->hasMany(Comment::class);
     }
+=======
+>>>>>>> origin/master
 }

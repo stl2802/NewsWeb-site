@@ -5,7 +5,11 @@
 | Create The Application
 |--------------------------------------------------------------------------
 |
+<<<<<<< HEAD
 | The first thing we will do is create.blade.php a new Laravel application instance
+=======
+| The first thing we will do is create a new Laravel application instance
+>>>>>>> origin/master
 | which serves as the "glue" for all the components of Laravel, and is
 | the IoC container for the system binding all of the various parts.
 |

@@ -22,7 +22,10 @@ class ArticleFactory extends Factory
             'title' => $this->faker->title(),
             'shortDesc' => $this->faker->sentence(6),
             'desc' => $this->faker->text(200),
+<<<<<<< HEAD
             'content' => $this->faker->text(500),
+=======
+>>>>>>> origin/master
             'user_id' => User::factory(),
         ];
     }

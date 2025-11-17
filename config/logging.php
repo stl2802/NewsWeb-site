@@ -30,10 +30,14 @@ return [
     |
     */
 
+<<<<<<< HEAD
     'deprecations' => [
         'channel' => env('LOG_DEPRECATIONS_CHANNEL', 'null'),
         'trace' => false,
     ],
+=======
+    'deprecations' => env('LOG_DEPRECATIONS_CHANNEL', 'null'),
+>>>>>>> origin/master
 
     /*
     |--------------------------------------------------------------------------

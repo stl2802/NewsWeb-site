@@ -1,5 +1,9 @@
 php:
   preset: laravel
+<<<<<<< HEAD
+=======
+  version: 8
+>>>>>>> origin/master
   disabled:
     - no_unused_imports
   finder:
